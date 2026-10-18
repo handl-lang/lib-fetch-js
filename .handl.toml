@@ -1,0 +1,6 @@
+[dependencies]
+fetch = { path = "../lib-fetch/src" }
+js = { path = "../lib-js/src" }
+
+# own package
+fetch-js = { path = "src" }
