@@ -7,7 +7,7 @@
 --- loop, so only it can resolve a promise -- `js.await` is the general
 --- interop bridge, not a fetch hook).
 
-from "../generated/fetch-webidl-browser/WindowOrWorkerGlobalScope" import { window_or_worker_global_scope_fetch }
+from "fetch-webidl/WindowOrWorkerGlobalScope" import { window_or_worker_global_scope_fetch }
 from "js" import { await as js_await, error as js_error, invoke as js_invoke }
 
 --- Fetch `input` (a URL string or Request object; `init` follows the
@@ -18,7 +18,7 @@ export fetch := (input, init) ~> do {
   if tag.tag_of(r) == "err" {
     r
   } else {
-    { ok: js_await(tag.untag(r).value) }
+    js_await(tag.untag(r).value)
   }
 }
 
@@ -40,13 +40,7 @@ export fetch_text := (input, init) ~> do {
     resp := tag.untag(r).value
     p := js_invoke(resp, "text", [], [], "js_string", false)
     e := js_error()
-    if e == null {
-      v := js_await(p)
-      e2 := js_error()
-      if e2 == null { { ok: v } } else { { err: e2 } }
-    } else {
-      { err: e }
-    }
+    if e == null { js_await(p) } else { { err: e } }
   }
 }
 
@@ -62,13 +56,7 @@ export fetch_json := (input, init) ~> do {
     resp := tag.untag(r).value
     p := js_invoke(resp, "json", [], [], "js_object", false)
     e := js_error()
-    if e == null {
-      v := js_await(p)
-      e2 := js_error()
-      if e2 == null { { ok: v } } else { { err: e2 } }
-    } else {
-      { err: e }
-    }
+    if e == null { js_await(p) } else { { err: e } }
   }
 }
 
@@ -85,12 +73,6 @@ export fetch_bytes := (input, init) ~> do {
     resp := tag.untag(r).value
     p := js_invoke(resp, "bytes", [], [], "js_object", false)
     e := js_error()
-    if e == null {
-      v := js_await(p)
-      e2 := js_error()
-      if e2 == null { { ok: v } } else { { err: e2 } }
-    } else {
-      { err: e }
-    }
+    if e == null { js_await(p) } else { { err: e } }
   }
 }
