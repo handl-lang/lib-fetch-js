@@ -13,12 +13,14 @@ from "js" import { await as js_await, error as js_error, invoke as js_invoke }
 --- Fetch `input` (a URL string or Request object; `init` follows the
 --- WebIDL RequestInit shape), awaiting the promise. Yields `{ ok: resp }`
 --- -- the resolved Response value -- or `{ err: JsError }`.
+is_err := (r) ~> match r { err(_): true, _: false }
+
 export fetch := (input, init) ~> do {
   r := window_or_worker_global_scope_fetch(input, init)
-  if tag.tag_of(r) == "err" {
+  if is_err(r) {
     r
   } else {
-    js_await(tag.untag(r).value)
+    js_await(r.value)
   }
 }
 
@@ -34,10 +36,10 @@ export fetch := (input, init) ~> do {
 --- exception, depending on the JS host's `await` injection.
 export fetch_text := (input, init) ~> do {
   r := fetch(input, init)
-  if tag.tag_of(r) == "err" {
+  if is_err(r) {
     r
   } else {
-    resp := tag.untag(r).value
+    resp := r.value
     p := js_invoke(resp, "text", [], [], "js_string", false)
     e := js_error()
     if e == null { js_await(p) } else { { err: e } }
@@ -50,10 +52,10 @@ export fetch_text := (input, init) ~> do {
 --- `fetch_text` via `resp.json()`.
 export fetch_json := (input, init) ~> do {
   r := fetch(input, init)
-  if tag.tag_of(r) == "err" {
+  if is_err(r) {
     r
   } else {
-    resp := tag.untag(r).value
+    resp := r.value
     p := js_invoke(resp, "json", [], [], "js_object", false)
     e := js_error()
     if e == null { js_await(p) } else { { err: e } }
@@ -67,10 +69,10 @@ export fetch_json := (input, init) ~> do {
 --- `resp.bytes()`.
 export fetch_bytes := (input, init) ~> do {
   r := fetch(input, init)
-  if tag.tag_of(r) == "err" {
+  if is_err(r) {
     r
   } else {
-    resp := tag.untag(r).value
+    resp := r.value
     p := js_invoke(resp, "bytes", [], [], "js_object", false)
     e := js_error()
     if e == null { js_await(p) } else { { err: e } }
