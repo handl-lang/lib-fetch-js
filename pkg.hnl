@@ -1,3 +1,11 @@
 -- lib-fetch-js: modules this package provides (entry defaults to
 -- src/index.hnl; N modules resolve to src/<name>/index.hnl).
-{ deps: { fetch: "branch:main", js: "branch:main" }, modules: ["fetch-js"] }
+{
+  deps: { fetch: "branch:main", js: "branch:main" },
+  modules: ["fetch-js"],
+  name: "fetch-js",
+  description: "fetch over generated WebIDL bindings — JS-host counterpart of fetch-c.",
+  license: "MIT",
+  keywords: ["fetch", "webidl", "js", "backend"],
+  homepage: "https://github.com/handl-lang/lib-fetch-js",
+}

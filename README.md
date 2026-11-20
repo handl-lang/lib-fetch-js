@@ -6,9 +6,6 @@
 `specs/fetch.idl` (w3c/webref @ 19e2457df856a43ec749c0fd4e88ae1edc4f6cb8,
 `ed/idl/fetch.idl`).
 
-Part of the `handl-lang` org split (ADR-0128). History is a `git subtree
-split` of the platform monorepo's `fetch-js/` (via `web`).
-
 ## Layout
 
 ```text
