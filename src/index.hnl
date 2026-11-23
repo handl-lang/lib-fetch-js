@@ -1,7 +1,7 @@
 --- fetch-js -- `fetch` over the generated WebIDL bindings.
 ---
 --- Browser/JS-host counterpart of fetch-c: the heavy lifting is the
---- sdkgen-generated adapter (generated/fetch-webidl-browser), which
+--- sdkgen-generated adapter (generated/fetch/fetch-webidl-browser), which
 --- marshals through the host-injected `js.call`; the returned Promise is
 --- settled by the host-injected `js.await` (the JS host owns the event
 --- loop, so only it can resolve a promise -- `js.await` is the general
