@@ -29,8 +29,8 @@ fi
 # is no .mdn-cache.json next to the output.
 if [ -f "$SPEC_DIR/fetch.idl" ]; then
   url="https://raw.githubusercontent.com/w3c/webref/19e2457df856a43ec749c0fd4e88ae1edc4f6cb8/ed/idl/fetch.idl"
-  echo "== hnl sdkgen webidl $SPEC_DIR/fetch.idl --output $GEN_DIR/fetch =="
-  "$HNL" sdkgen webidl "$SPEC_DIR/fetch.idl" --output "$GEN_DIR/fetch" --source-url "$url"
+  echo "== hnl codegen webidl $SPEC_DIR/fetch.idl --output $GEN_DIR/fetch =="
+  "$HNL" codegen webidl "$SPEC_DIR/fetch.idl" --output "$GEN_DIR/fetch" --source-url "$url"
 fi
 
 scan_dirs=("$SRC_DIR")
