@@ -6,7 +6,7 @@
 
 [[repos]]
 name = "handl-lang/lib-fetch-js"
-dir = "/home/luis/GitHub/handl-lang/lib-fetch-js"
+dir = "~//GitHub/handl-lang/lib-fetch-js"
 branch = "refs/heads/main"
   [repos.runner]
   kind = "script"
