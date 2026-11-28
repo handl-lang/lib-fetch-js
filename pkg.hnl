@@ -1,7 +1,15 @@
 -- lib-fetch-js: modules this package provides (entry defaults to
 -- src/index.hnl; N modules resolve to src/<name>/index.hnl).
 {
-  deps: { fetch: "branch:main", js: "branch:main" },
+  -- `js` is intentionally NOT a dep: it is a host/builtin contract
+  -- (compile-js binds `from "js"` to __handl_rt shims regardless of dep
+  -- tables); declaring it resolves `js` to lib-js's signature-erased
+  -- exports instead of the ambient `js.*` call_host surface. See AGENTS.md.
+  -- test_coverage "none": every export routes through js.call/js.await/
+  -- js.invoke/js.error host natives plus generated WebIDL bindings — no
+  -- interpreter-side JS host exists to exercise them.
+  deps: { fetch: "branch:main" },
+  test_coverage: "none",
   modules: ["fetch-js"],
   name: "fetch-js",
   description: "fetch over generated WebIDL bindings — JS-host counterpart of fetch-c.",
